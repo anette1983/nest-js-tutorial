@@ -7,14 +7,14 @@ import {
   JoinColumn,
   ManyToOne,
   OneToMany,
-  PrimaryColumn,
+  PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 
 //свяжем юзера с категориями
 @Entity()
 export class Category {
-  @PrimaryColumn({ name: 'category_id' }) //category_id в базе колонка, в коде - просто айди
+  @PrimaryGeneratedColumn({ name: 'category_id' }) //category_id в базе колонка, в коде - просто айди
   id: number;
   @Column()
   title: string;

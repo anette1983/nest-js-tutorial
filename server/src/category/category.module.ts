@@ -3,10 +3,12 @@ import { CategoryService } from './category.service';
 import { CategoryController } from './category.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Category } from './entities/category.entity';
+import { Transaction } from 'src/transaction/entities/transaction.entity';
+import { TransactionService } from 'src/transaction/transaction.service';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Category])], //импортируем сущность категорий из базы
+  imports: [TypeOrmModule.forFeature([Category, Transaction])], //импортируем сущность категорий из базы
   controllers: [CategoryController],
-  providers: [CategoryService],
+  providers: [CategoryService, TransactionService],
 })
 export class CategoryModule {}

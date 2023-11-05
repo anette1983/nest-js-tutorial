@@ -6,7 +6,7 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
-  PrimaryColumn,
+  PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 
@@ -14,7 +14,7 @@ import {
 
 @Entity()
 export class Transaction {
-  @PrimaryColumn({ name: 'transaction_id' }) //category_id в базе колонка, в коде - просто айди
+  @PrimaryGeneratedColumn({ name: 'transaction_id' }) //category_id в базе колонка, в коде - просто айди
   id: number;
   @Column()
   title: string;

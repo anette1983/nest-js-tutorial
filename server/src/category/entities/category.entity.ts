@@ -22,6 +22,7 @@ export class Category {
   @JoinColumn({ name: 'user_id' }) //теперь в таблице видим айди юзера, к которому категория относится
   user: User;
   @OneToMany(() => Transaction, (transaction) => transaction.category) //зеркально в транзакциях подписались на категорию и поле транзакшнс
+  @JoinColumn({ name: 'transaction_id' })
   transactions: Transaction[];
   @CreateDateColumn()
   createdAt: Date;

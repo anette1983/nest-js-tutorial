@@ -1,5 +1,5 @@
-import { Category } from 'src/category/entities/category.entity';
-import { Transaction } from 'src/transaction/entities/transaction.entity';
+import { Category } from 'src/category/entities/category.entity'
+import { Transaction } from 'src/transaction/entities/transaction.entity'
 import {
   Column,
   CreateDateColumn,
@@ -7,28 +7,32 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
-} from 'typeorm';
+} from 'typeorm'
 
-// это таблица в базе данных, которую создадим
-@Entity() // это декоратор
+@Entity()
 export class User {
-  @PrimaryGeneratedColumn() //деоратор для айди
-  id: number;
+  @PrimaryGeneratedColumn()
+  id: number
+
   @Column()
-  email: string;
+  email: string
+
   @Column()
-  password: string;
+  password: string
+
   @OneToMany(() => Category, (category) => category.user, {
-    onDelete: 'CASCADE', //необязат 3 параметр, можем указать, что делать с катег юзера, когда его удаляем
-  }) //у кажд юзера етсь массив категорий и у табл категорий привязываемся к полю юзер
-  categories: Category[]; //тип Category при помощи тайпорм сам создается из модели категорий из ентити
+    onDelete: 'CASCADE',
+  })
+  categories: Category[]
+
   @OneToMany(() => Transaction, (transaction) => transaction.user, {
-    onDelete: 'CASCADE', //необязат 3 параметр, можем указать, что делать с катег юзера, когда его удаляем
-  }) //у кажд юзера етсь массив категорий и у табл категорий привязываемся к полю юзер
-  transactions: Transaction[]; //свяжем транзакции и юзера, может быть один юзер и много транзакций
+    onDelete: 'CASCADE',
+  })
+  transactions: Transaction[]
+
   @CreateDateColumn()
-  createdAt: Date;
+  createdAt: Date
+
   @UpdateDateColumn()
-  updatedAt: Date;
+  updatedAt: Date
 }
-// у юзера будет связь с категориями по типу один (юзер) ко многим (категориям)

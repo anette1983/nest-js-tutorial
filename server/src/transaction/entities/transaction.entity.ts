@@ -1,35 +1,43 @@
-import { Category } from 'src/category/entities/category.entity';
-import { User } from 'src/user/entities/user.entity';
+import { Category } from 'src/category/entities/category.entity'
+import { User } from 'src/user/entities/user.entity'
 import {
-  Column,
-  CreateDateColumn,
-  Entity,
-  JoinColumn,
-  ManyToOne,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
-} from 'typeorm';
-
-// транзакции должны знать и о юзере, и о категориях
+	Column,
+	CreateDateColumn,
+	Entity,
+	JoinColumn,
+	ManyToOne,
+	PrimaryGeneratedColumn,
+	UpdateDateColumn,
+} from 'typeorm'
 
 @Entity()
 export class Transaction {
-  @PrimaryGeneratedColumn({ name: 'transaction_id' }) //category_id в базе колонка, в коде - просто айди
-  id: number;
-  @Column()
-  title: string;
-  @Column()
-  amount: number;
-  @Column({ nullable: true }) //значение может быть нал, можем создать транзакцию, какуюто катег использовать а потом удалить
-  type: string; // если катег удалится, чтобы транзакция осталась, хоть и нал
-  @ManyToOne(() => User, (user) => user.transactions) // тут привязываемся к полю в юзере
-  @JoinColumn({ name: 'user_id' }) //теперь в таблице видим айди юзера, к которому транзакция относится
-  user: User;
-  @ManyToOne(() => Category, (category) => category.transactions) //у многих транзакций может быть одна категория
-  @JoinColumn({ name: 'category_id' })
-  category: Category;
-  @CreateDateColumn()
-  createdAt: Date;
-  @UpdateDateColumn()
-  updatedAt: Date;
+	@PrimaryGeneratedColumn({ name: 'transaction_id' })
+	id: number
+
+	@Column()
+	title: string
+
+	@Column({ nullable: true })
+	type: string
+
+	@ManyToOne(() => User, (user) => user.transactions)
+	@JoinColumn({ name: 'user_id' })
+	user: User
+
+	@ManyToOne(() => Category, (category) => category.transactions, {
+		onDelete: 'SET NULL',
+	})
+	@JoinColumn({ name: 'category_id' })
+	category: Category
+
+	@Column()
+	amount: number
+
+
+	@CreateDateColumn()
+	createdAt: Date
+
+	@UpdateDateColumn()
+	updatedAt: Date
 }
